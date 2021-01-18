@@ -1,13 +1,13 @@
 @extends('layouts.layout')
 
-@section('contenido')		
+@section('contenido')
 
     <header>
         <div class="col-md-12 text-center m-4">
-            <h1>Metamatica</h1>
+            <h1>Matemática</h1>
         </div>
     </header>
-    
+
     <div class="offset-md-1 col-md-10">
         <div class="my-3">
             <a href="{{route('web.generar')}}" class="btn btn-primary">Crear Item de Ejercicios</a>
@@ -32,12 +32,12 @@
                         <td>{{$seccion->tiempo_general}}s</td>
                         <td>{{$seccion->estado}}</td>
                         <td>{{$seccion->created_at}}</td>
-                        @if($seccion->estado !== 'RESUELTO')
+                        @if($seccion->estado !== 'FINALIZADO')
                             <td><a href="{{route('web.solve', $seccion->id)}}" class="btn btn-success">RESOLVER</a></td>
                         @else
                             <td><a href="{{route('web.solve', $seccion->id)}}" class="btn btn-danger">REALIZADO</a></td>
                         @endif
-                        
+
                     </tr>
                 @endforeach
             </tbody>

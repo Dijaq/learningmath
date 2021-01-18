@@ -30,17 +30,17 @@ class WebController extends BaseController
     public function solve($id)
     {
         $user = auth()->user();
-        $seccion = SeccionEjercicios::where('id', $id)->with('multiplicaciones')->first();        
+        $seccion = SeccionEjercicios::where('id', $id)->with('multiplicaciones')->first();
         return view('math.solve', compact('seccion'));
     }
-    
+
     public function resolver(Request $request)
     {
-        
+
         $seccion_ejercicio = SeccionEjercicios::findOrFail($request->seccion_identificador);
         $multiplicaciones = Multiplicacion::where('seccionejercicios_id', $seccion_ejercicio->id)->get();
         $aciertos = 0;
-        
+
         foreach($multiplicaciones as $multiplicacion)
         {
             if($multiplicacion->resultado_correcto === $request->{"multi_".$multiplicacion->id})
@@ -55,7 +55,7 @@ class WebController extends BaseController
             $multiplicacion->update();
         }
 
-        $seccion_ejercicio->estado = 'RESUELTO';
+        $seccion_ejercicio->estado = 'FINALIZADO';
         $seccion_ejercicio->cantidad_resuelta = $aciertos;
         $seccion_ejercicio->update();
 
